@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboukezi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/27 15:09:39 by aboukezi          #+#    #+#             */
-/*   Updated: 2024/03/27 15:09:40 by aboukezi         ###   ########.fr       */
+/*   Created: 2024/04/14 18:53:08 by aboukezi          #+#    #+#             */
+/*   Updated: 2024/04/14 18:53:10 by aboukezi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,60 +35,6 @@ char	*ft_read_file(int fd, char *filetoread)
 	}
 	free(buffer);
 	return (filetoread);
-}
-
-char	*ft_get_line(char *save)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	while (save[i] != '\0' && save[i] != '\n')
-		i++;
-	line = (char *)malloc((i + 2) * sizeof(char));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (save[i] != '\0' && save[i] != '\n')
-	{
-		line[i] = save[i];
-		i++;
-	}
-	if (save[i] != '\0' && save[i] == '\n')
-	{
-		line[i] = '\n';
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-char	*ft_next(char *save)
-{
-	int		i;
-	int		j;
-	char	*next;
-
-	i = 0;
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (!save[i])
-	{
-		free(save);
-		return (NULL);
-	}
-	next = (char *)malloc((ft_strlen(save) - i + 1) * sizeof(char));
-	if (!next)
-	{
-		free(next);
-		return (NULL);
-	}
-	j = 0;
-	while (save[++i])
-		next[j++] = save[i];
-	next[j] = '\0';
-	free(save);
-	return (next);
 }
 
 char	*get_next_line(int fd)
