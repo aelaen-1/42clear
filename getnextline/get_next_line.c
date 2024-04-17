@@ -20,7 +20,7 @@ char	*ft_read_file(int fd, char *filetoread)
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	read_bytes = 1;
+	read_bytes = 10;
 	while ((read_bytes > 0) && !(ft_strchr(filetoread, '\n')))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
@@ -30,7 +30,11 @@ char	*ft_read_file(int fd, char *filetoread)
 			free(buffer);
 			return (NULL);
 		}
+		if (read_bytes == 0)
+			break ;
 		buffer[read_bytes] = '\0';
+		if (!filetoread)
+			filetoread = ft_calloc(1, 1);
 		filetoread = ft_strjoin(filetoread, buffer);
 	}
 	free(buffer);
