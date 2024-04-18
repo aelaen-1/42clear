@@ -40,82 +40,55 @@ char	*ft_strchr(char *s, char c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *saved, char *buffer)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t	buffer_len;
-	size_t	content_len;
-	char	*result;
-	char	*result_ptr;
-	char	*src;
+	char			*str;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	len;
 
-	buffer_len = 0;
-	if (!saved && !buffer)
+	i = 0;
+	if (!s1 || !s2)
+	{
+		free(s1);
+		return(NULL);
+	}
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
 		return (NULL);
-	if (saved)
-		buffer_len = ft_strlen(saved);
-	content_len = ft_strlen(buffer);
-	result = (char *)malloc(sizeof(char) * (buffer_len + content_len + 1));
-	if (!result)
-		return (NULL);
-	result_ptr = result;
-	src = saved;
-	while (src && *src)
-		*result_ptr++ = *src++;
-	src = (char *)buffer;
-	while (src && *src)
-		*result_ptr++ = *src++;
-	*result_ptr = '\0';
-	free(saved);
-	return (result);
+	i = 0;
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	j = 0 ;
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[len] = '\0';
+	free(s1);
+	return (str);
 }
 
-char	*ft_get_line(char *save)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*line;
-	int		i;
+	void				*s;
+	size_t				totalsize;
+	unsigned char		*ptr;
 
-	i = 0;
-	while (save[i] != '\0' && save[i] != '\n')
-		i++;
-	line = (char *)malloc((i + 2) * sizeof(char));
-	if (!line)
+	totalsize = (nmemb * size);
+	if (nmemb && size > (size_t) - 1 / nmemb)
 		return (NULL);
-	i = 0;
-	while (save[i] != '\0' && save[i] != '\n')
-	{
-		line[i] = save[i];
-		i++;
-	}
-	if (save[i] != '\0' && save[i] == '\n')
-	{
-		line[i] = '\n';
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-char	*ft_next(char *save)
-{
-	int		i;
-	int		j;
-	char	*next;
-
-	i = 0;
-	while (save[i] && save[i] != '\n')
-		i++;
-	if (!save[i])
-	{
-		free(save);
+	s = malloc(nmemb * size);
+	if (s == NULL)
 		return (NULL);
+	ptr = (unsigned char *)s;
+	while (totalsize > 0)
+	{
+		*ptr = 0;
+		ptr++;
+		totalsize--;
 	}
-	next = (char *)malloc((ft_strlen(save) - i + 1) * sizeof(char));
-	if (!next)
-		return (NULL);
-	j = 0;
-	while (save[++i])
-		next[j++] = save[i];
-	next[j] = '\0';
-	free(save);
-	return (next);
+	return (s);
 }

@@ -17,7 +17,7 @@ char	*ft_read_file(int fd, char *filetoread)
 	char	*buffer;
 	int		read_bytes;
 
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	read_bytes = 10;
@@ -39,6 +39,68 @@ char	*ft_read_file(int fd, char *filetoread)
 	}
 	free(buffer);
 	return (filetoread);
+}
+
+char	*ft_get_line(char *save)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	while (save[i] != '\0' && save[i] != '\n')
+		i++;
+	line = (char *)malloc((i + 2) * sizeof(char));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (save[i] != '\0' && save[i] != '\n')
+	{
+		line[i] = save[i];
+		i++;
+	}
+	if (save[i] != '\0' && save[i] == '\n')
+	{
+		line[i] = '\n';
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+char	*ft_next(char *save)
+{
+	int		i;
+	int		j;
+	char	*next;
+	int		len;
+
+	i = 0;
+	len = 0;
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i] || i < 0)
+	{
+		free(save);
+		return (NULL);
+	}
+	len = ft_strlen(save) - i - 1;
+	next = malloc((len + 1) * sizeof(char));
+	if (!next)
+		return (NULL);
+	j = 0;
+	while (save[++i])
+		next[j++] = save[i];
+	next[j] = '\0';
+	free(save);
+	save = malloc((len + 1)* sizeof(char));
+	j = 0;
+	while (next[j])
+	{
+		save[j] = next[j];
+		j++;
+	}
+	save[j] = '\0';
+	free(next);
+	return (save);
 }
 
 char	*get_next_line(int fd)
