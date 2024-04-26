@@ -27,9 +27,11 @@ char	*ft_get_line(char *save);
 char	*ft_next(char *save);
 char	*ft_read_file(int fd, char *filetoread);
 
+char	*ft_new_stash(char *stash);
+
 size_t	ft_strlen(char *str);
 char	*ft_strchr(char *s, char c);
-char	*ft_calloc(size_t count, size_t size);
+void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
 
 #endif

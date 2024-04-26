@@ -20,7 +20,7 @@ char	*ft_read_file(int fd, char *filetoread)
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	read_bytes = 10;
+	read_bytes = 1;
 	while ((read_bytes > 0) && !(ft_strchr(filetoread, '\n')))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
@@ -92,6 +92,11 @@ char	*ft_next(char *save)
 	next[j] = '\0';
 	free(save);
 	save = malloc((len + 1)* sizeof(char));
+	if (!save)
+	{
+		free(next);
+		return (NULL);
+	}
 	j = 0;
 	while (next[j])
 	{
@@ -108,17 +113,22 @@ char	*get_next_line(int fd)
 	static char	*save;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
 	save = ft_read_file(fd, save);
 	if (!save)
 		return (NULL);
 	line = ft_get_line(save);
-	if (!line || !*line)
+	if (line == NULL || line[0] == '\0') /*line == NULL   =   pointe vers l'adresse NULL=il n'y a pas d'adresse, on ne peut pas regarder a cette adresse*/
 	{
 		free(line);
 		return (NULL);
 	}
 	save = ft_next(save);
+	if (save != NULL && ft_strlen(save) == 0)
+	{
+		free(save);
+		save = NULL;
+	}
 	return (line);
 }

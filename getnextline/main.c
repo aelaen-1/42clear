@@ -21,17 +21,26 @@ int	main(void)
 	int		i;
 
 	i = 0;
-	fd = open("testfiles/42blockchain.txt", O_RDONLY);
+	fd = open("read_error.txt", O_RDONLY);
 	fd2 = open("testfiles/emptyfile.txt", O_RDONLY);
-	while (i < 1000000)
+	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
 		printf("%s", line);
+		free(line);
 		i++;
 	}
-	printf("Ce fichier contient %i lignes", i);
-	line = get_next_line(fd2);
-	printf("\nLe contenu de emptyfile.txt est : %s.", line);
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	free(line);
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	free(line);
+	// printf("Ce fichier contient %i lignes", i);
+	// line = get_next_line(fd2);
+	// printf("\nLe contenu de emptyfile.txt est : %s.", line);
+	close(fd);
+	close(fd2);
 }
