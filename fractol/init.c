@@ -18,20 +18,7 @@ void error_msg()
     exit(EXIT_FAILURE);
 }
 
-void events_init(t_fractal *fract)
-{
-    mlx_hook();
-}
-
-void data_init(t_fractal *fract)
-{
-    fract->escape_value = 4;
-    fract->shift_a = 0.0;
-    fract->shift_b = 0.0;
-    fract->zoom = 0.0;
-}
-
-void init(t_fractal *fract)
+void manageWindow(t_fractal *fract)
 {
     fract->mlx_ptr = mlx_init(); //mlx_ptr
     if (fract == NULL)
@@ -59,6 +46,4 @@ void init(t_fractal *fract)
                                                     fract->img.bpp,
                                                         fract->img.size_line,
                                                             fract->img.endian);
-    data_init(fract);
-    events_init(fract);
 }

@@ -61,7 +61,7 @@ typedef struct s_fract
 
 // FUNCTION PROTOTYPES
 
-void manageWindow(t_fractal *fract); // why using a pointer to struct ? 
+void init(t_fractal *fract); // why using a pointer to struct ? 
 void render(t_fractal *fract);
 
 /* UTILS */ 
