@@ -1,10 +1,8 @@
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -L 
+CCFLAGS = cc -Wall -Werror -Wextra -L 
 MLXFLAGS = -Lmlx-linux -lmlx_Linux -lX11 -lXext
 
 LIBFT = libft/
 UTILS = utils/
-FTFRACTOL = fractol.c
 FRACTOL = fractol
 
 all: $(FRACTOL)
@@ -12,7 +10,7 @@ all: $(FRACTOL)
 $(FRACTOL):
 	$(MAKE) -C ./$(LIBFT)
 	$(MAKE) -C ./minilibx-linux
-	$(CC) $(CFLAGS) $(FTLP) ./*.c ./$(UTILS) ./$(LIBFT)/libft.a $(MLXFLAGS) -o $(FRACTOL)
+	$(CCFLAGS) $(MLXFLAGS) ./*.c $(LIBFT) ./$(UTILS) ./$(LIBFT)/libft.a -o $(FRACTOL)
 
 clean:
 	$(MAKE) clean -C ./$(LIBFT) ./$(UTILS)
