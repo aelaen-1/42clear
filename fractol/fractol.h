@@ -67,6 +67,6 @@ void render(t_fractal *fract);
 /* UTILS */ 
 t_complex  sum(t_complex z1, t_complex z2);
 t_complex  square(t_complex z);
-double atof(char *s);
+double atodb(char *s);
 
 #endif

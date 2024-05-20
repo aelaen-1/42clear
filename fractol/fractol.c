@@ -25,7 +25,7 @@ int main(int ac, char **av)
             fract.julia_a = atof(av[2]);
             fract.julia_b = atof(av[3]);
         }
-        createWindow(&fract);
+        init(&fract);
         render(&fract);
     }
     else

@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_display.c                                     :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboukezi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 17:00:35 by aboukezi          #+#    #+#             */
-/*   Updated: 2024/05/18 17:00:36 by aboukezi         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:14:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "fractol.h"
+#include "fractol.h"
 
 void error_msg()
 {
-    ft_putstr("MALLOC ERROR");
+    ft_putstr_fd("MALLOC ERROR", STDERR_FILENO);
     exit(EXIT_FAILURE);
 }
 
-void manageWindow(t_fractal *fract)
+void events_init(t_fractal *fract)
+{
+    mlx_hook();
+}
+
+void data_init(t_fractal *fract)
+{
+    fract->escape_value = 4;
+    fract->shift_a = 0.0;
+    fract->shift_b = 0.0;
+    fract->zoom = 0.0;
+}
+
+void init(t_fractal *fract)
 {
     fract->mlx_ptr = mlx_init(); //mlx_ptr
     if (fract == NULL)
@@ -43,7 +56,9 @@ void manageWindow(t_fractal *fract)
         error_msg();
     }
     fract->img.pixels_ptr = mlx_get_data_addr(fract->img.img_ptr,
-                                                    fract->img.bpp,
-                                                        fract->img.size_line,
-                                                            fract->img.endian);
+                                                    &fract->img.bpp,
+                                                        &fract->img.size_line,
+                                                            &fract->img.endian);
+    data_init(fract);
+    events_init(fract);
 }
