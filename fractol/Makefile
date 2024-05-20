@@ -3,14 +3,14 @@ MLXFLAGS = -Lmlx-linux -lmlx_Linux -lX11 -lXext
 
 LIBFT = libft/
 UTILS = utils/
-FRACTOL = fractol
+NAME = fractol
 
-all: $(FRACTOL)
+all: $(NAME)
 
 $(FRACTOL):
 	$(MAKE) -C ./$(LIBFT)
 	$(MAKE) -C ./minilibx-linux
-	$(CCFLAGS) $(MLXFLAGS) ./*.c $(LIBFT) ./$(UTILS) ./$(LIBFT)/libft.a -o $(FRACTOL)
+	$(CCFLAGS) $(MLXFLAGS) ./*.c $(LIBFT) ./$(UTILS) ./$(LIBFT)/libft.a -o $(NAME)
 
 clean:
 	$(MAKE) clean -C ./$(LIBFT) ./$(UTILS)
